@@ -1,0 +1,26 @@
+services:
+  backend:
+    build:
+      context: ./back
+    ports:
+      - "4000:4000"
+    image: marcyannick/docker-quotes-back:v1.0
+    networks:
+      - app-network
+    platform: linux/amd64
+
+  frontend:
+    build:
+      context: ./front
+    ports:
+      - "3000:3000"
+    depends_on:
+      - backend
+    image: marcyannick/docker-quotes-front:v1.0
+    networks:
+      - app-network
+    platform: linux/amd64
+
+networks:
+  app-network:
+    driver: bridge
